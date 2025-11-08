@@ -1,0 +1,30 @@
+version: '3.8'
+
+services:
+  gemini:
+    image: gemini_ai
+    container_name: gemini_bot
+    build: .
+    command: python Gemini.py
+    restart: always
+    env_file:
+      - .env
+#    environment:
+#      - http_proxy=http://xray-client:3128
+#      - https_proxy=http://xray-client:3128
+#      - HTTP_PROXY=http://xray-client:3128
+#      - HTTPS_PROXY=http://xray-client:3128
+    volumes:
+      - ./data/config_gemini.json:/app/config_gemini.json
+      - ./data/roles_gemini.json:/app/roles_gemini.json
+      - ./data/gemini_user_ids.json:/app/gemini_user_ids.json
+#    networks:
+#      - proxy-net
+    deploy:
+      resources:
+        limits:
+          memory: 150M
+
+#networks:
+#  proxy-net:
+#    external: true
